@@ -1,39 +1,34 @@
-/**
- * LocalStorage Management Module
- * Handles all data persistence operations using browser LocalStorage
- * Enhanced with multi-user support
- */
+
 
 const Storage = {
-    // Storage keys
+    
     KEYS: {
-        SUBJECTS: 'studyPlanner_subjects', // Legacy key
-        SCHEDULES: 'studyPlanner_schedules', // Legacy key
-        TASKS: 'studyPlanner_tasks', // Legacy key
-        SETTINGS: 'studyPlanner_settings', // Legacy key
-        USER_DATA: 'studyPlanner_userData', // New multi-user key
+        SUBJECTS: 'studyPlanner_subjects', 
+        SCHEDULES: 'studyPlanner_schedules', 
+        TASKS: 'studyPlanner_tasks', 
+        SETTINGS: 'studyPlanner_settings', 
+        USER_DATA: 'studyPlanner_userData', 
         CURRENT_USER: 'studyPlanner_currentUser'
     },
 
-    // Initialize storage with default data if empty
+    
     init() {
-        // Migrate from old multi-user structure if needed
+        
         this.migrateFromMultiUser();
     },
 
-    // Migrate from old multi-user structure to simple single-user structure
+    
     migrateFromMultiUser() {
         const currentUser = localStorage.getItem(this.KEYS.CURRENT_USER);
         const userData = localStorage.getItem(this.KEYS.USER_DATA);
 
-        // Check if migration is needed
+        
         if (currentUser && userData) {
             try {
                 const allUserData = JSON.parse(userData);
                 const userSpecificData = allUserData[currentUser];
 
                 if (userSpecificData) {
-                    // Migrate data to simple keys if they don't already exist
                     if (!localStorage.getItem(this.KEYS.SUBJECTS) && userSpecificData.subjects) {
                         localStorage.setItem(this.KEYS.SUBJECTS, JSON.stringify(userSpecificData.subjects));
                     }
@@ -49,10 +44,6 @@ const Storage = {
 
                     console.log('✅ Data migrated from multi-user to single-user format');
 
-                    // Optional: Clean up old keys after successful migration
-                    // localStorage.removeItem(this.KEYS.USER_DATA);
-                    // localStorage.removeItem(this.KEYS.CURRENT_USER);
-                    // localStorage.removeItem('studyPlanner_users');
                 }
             } catch (error) {
                 console.error('Migration failed:', error);
@@ -60,12 +51,10 @@ const Storage = {
         }
     },
 
-    // Generate unique ID
     generateId() {
         return Date.now().toString(36) + Math.random().toString(36).substr(2);
     },
 
-    // ===== SUBJECTS =====
     getSubjects() {
         const data = localStorage.getItem(this.KEYS.SUBJECTS);
         return data ? JSON.parse(data) : [];
@@ -106,7 +95,6 @@ const Storage = {
         const filtered = subjects.filter(s => s.id !== id);
         this.setSubjects(filtered);
 
-        // Also delete related schedules and tasks
         this.deleteSchedulesBySubject(id);
         this.deleteTasksBySubject(id);
 
@@ -117,8 +105,6 @@ const Storage = {
         const subjects = this.getSubjects();
         return subjects.find(s => s.id === id);
     },
-
-    // Check for duplicate subject names
     isDuplicateSubject(name, excludeId = null) {
         const subjects = this.getSubjects();
         return subjects.some(s =>
@@ -127,7 +113,7 @@ const Storage = {
         );
     },
 
-    // ===== SCHEDULES =====
+    
     getSchedules() {
         const data = localStorage.getItem(this.KEYS.SCHEDULES);
         return data ? JSON.parse(data) : [];
@@ -183,11 +169,9 @@ const Storage = {
         this.setSchedules(filtered);
     },
 
-    // Check for schedule conflicts
     hasScheduleConflict(day, startTime, endTime, excludeId = null) {
         const schedules = this.getSchedules();
 
-        // Convert time strings to minutes for easier comparison
         const toMinutes = (time) => {
             const [hours, minutes] = time.split(':').map(Number);
             return hours * 60 + minutes;
@@ -203,7 +187,6 @@ const Storage = {
             const existingStart = toMinutes(schedule.startTime);
             const existingEnd = toMinutes(schedule.endTime);
 
-            // Check if time ranges overlap
             return (newStart < existingEnd && newEnd > existingStart);
         });
     },
@@ -229,7 +212,6 @@ const Storage = {
         });
     },
 
-    // ===== TASKS =====
     getTasks() {
         const data = localStorage.getItem(this.KEYS.TASKS);
         return data ? JSON.parse(data) : [];
@@ -291,7 +273,6 @@ const Storage = {
         this.setTasks(filtered);
     },
 
-    // ===== SETTINGS =====
     getSettings() {
         const data = localStorage.getItem(this.KEYS.SETTINGS);
         return data ? JSON.parse(data) : { theme: 'light', lastBackup: null };
@@ -314,7 +295,6 @@ const Storage = {
         this.setSettings(settings);
     },
 
-    // ===== DATA MANAGEMENT =====
     exportData() {
         const data = {
             subjects: this.getSubjects(),
@@ -351,7 +331,7 @@ const Storage = {
         return true;
     },
 
-    // ===== UTILITY =====
+    
     getRandomColor() {
         const colors = [
             '#10b981', '#3b82f6', '#8b5cf6', '#ec4899',
@@ -360,7 +340,5 @@ const Storage = {
         return colors[Math.floor(Math.random() * colors.length)];
     }
 };
-
-// Initialize storage on load
 Storage.init();
 

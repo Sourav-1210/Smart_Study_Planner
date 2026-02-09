@@ -1,26 +1,19 @@
-/**
- * Task Management Module
- * Handles task/assignment CRUD operations, filtering, and deadline tracking
- */
+
 
 const TasksManager = {
-    currentFilter: 'all', // 'all', 'pending', 'completed'
+    currentFilter: 'all', 
 
-    // Initialize the tasks section
     init() {
         this.bindEvents();
         this.updateSubjectDropdown();
         this.render();
     },
 
-    // Bind event listeners
     bindEvents() {
-        // Add task button
         document.getElementById('addTaskBtn').addEventListener('click', () => {
             this.openModal();
         });
 
-        // Modal close buttons
         document.getElementById('closeTaskModal').addEventListener('click', () => {
             this.closeModal();
         });
@@ -29,13 +22,11 @@ const TasksManager = {
             this.closeModal();
         });
 
-        // Form submit
         document.getElementById('taskForm').addEventListener('submit', (e) => {
             e.preventDefault();
             this.handleSubmit();
         });
 
-        // Filter buttons
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.setFilter(e.target.dataset.filter);
@@ -43,7 +34,6 @@ const TasksManager = {
         });
     },
 
-    // Update subject dropdown in modal
     updateSubjectDropdown() {
         const select = document.getElementById('taskSubject');
         const subjects = Storage.getSubjects();
@@ -58,11 +48,9 @@ const TasksManager = {
         });
     },
 
-    // Set filter
     setFilter(filter) {
         this.currentFilter = filter;
 
-        // Update button states
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.filter === filter);
         });
@@ -70,14 +58,12 @@ const TasksManager = {
         this.render();
     },
 
-    // Open modal
     openModal() {
         const modal = document.getElementById('taskModal');
         const form = document.getElementById('taskForm');
 
         form.reset();
 
-        // Set minimum deadline to now
         const now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
         document.getElementById('taskDeadline').min = now.toISOString().slice(0, 16);
@@ -85,26 +71,22 @@ const TasksManager = {
         modal.classList.add('show');
     },
 
-    // Close modal
     closeModal() {
         const modal = document.getElementById('taskModal');
         modal.classList.remove('show');
     },
 
-    // Handle form submission
     handleSubmit() {
         const subjectId = document.getElementById('taskSubject').value;
         const title = document.getElementById('taskTitle').value.trim();
         const type = document.getElementById('taskType').value;
         const deadline = document.getElementById('taskDeadline').value;
 
-        // Validation
         if (!subjectId || !title || !type || !deadline) {
             showToast('Please fill in all fields', 'error');
             return;
         }
 
-        // Add task
         Storage.addTask({ subjectId, title, type, deadline });
         showToast('Task added successfully', 'success');
 
@@ -114,7 +96,6 @@ const TasksManager = {
         if (window.AnalyticsManager) AnalyticsManager.render();
     },
 
-    // Toggle task completion
     toggleComplete(taskId) {
         Storage.toggleTaskComplete(taskId);
         this.render();
@@ -122,7 +103,6 @@ const TasksManager = {
         if (window.AnalyticsManager) AnalyticsManager.render();
     },
 
-    // Delete task
     deleteTask(taskId) {
         showConfirmation(
             'Are you sure you want to delete this task?',
@@ -136,7 +116,6 @@ const TasksManager = {
         );
     },
 
-    // Render tasks list
     render() {
         const container = document.getElementById('tasksList');
         let tasks = Storage.getTasks();
@@ -146,7 +125,6 @@ const TasksManager = {
             return;
         }
 
-        // Apply filter
         if (this.currentFilter === 'pending') {
             tasks = tasks.filter(t => !t.completed);
         } else if (this.currentFilter === 'completed') {
@@ -158,13 +136,11 @@ const TasksManager = {
             return;
         }
 
-        // Sort by deadline (ascending)
         tasks.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
 
         container.innerHTML = tasks.map(task => this.renderTask(task)).join('');
     },
 
-    // Render individual task
     renderTask(task) {
         const subject = Storage.getSubjectById(task.subjectId);
         if (!subject) return '';
@@ -212,7 +188,6 @@ const TasksManager = {
         `;
     },
 
-    // Format deadline
     formatDeadline(deadline) {
         const date = new Date(deadline);
         const now = new Date();
@@ -239,7 +214,6 @@ const TasksManager = {
         return formatted;
     },
 
-    // Escape HTML
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -247,5 +221,5 @@ const TasksManager = {
     }
 };
 
-// Make it available globally
+
 window.TasksManager = TasksManager;

@@ -1,12 +1,10 @@
 
 
 const AnalyticsManager = {
-    // Initialize the analytics section
     init() {
         this.render();
     },
 
-    // Render all analytics
     render() {
         this.renderOverallProgress();
         this.renderSubjectProgress();
@@ -14,7 +12,6 @@ const AnalyticsManager = {
         this.renderInsights();
     },
 
-    // Render overall progress bar
     renderOverallProgress() {
         const tasks = Storage.getTasks();
 
@@ -32,7 +29,6 @@ const AnalyticsManager = {
         document.getElementById('overallProgressText').textContent = `${percentage}% Complete (${completed}/${total} tasks)`;
     },
 
-    // Render subject-wise progress
     renderSubjectProgress() {
         const container = document.getElementById('subjectProgress');
         const subjects = Storage.getSubjects();
@@ -55,14 +51,14 @@ const AnalyticsManager = {
                 total,
                 percentage
             };
-        }).filter(stat => stat.total > 0); // Only show subjects with tasks
+        }).filter(stat => stat.total > 0); 
 
         if (subjectStats.length === 0) {
             container.innerHTML = '<p class="empty-state">No task data available</p>';
             return;
         }
 
-        // Sort by percentage (descending)
+        
         subjectStats.sort((a, b) => b.percentage - a.percentage);
 
         container.innerHTML = subjectStats.map(stat => `
@@ -76,7 +72,6 @@ const AnalyticsManager = {
         `).join('');
     },
 
-    // Render task completion pie chart (using CSS conic-gradient)
     renderTaskChart() {
         const container = document.getElementById('taskChart');
         const tasks = Storage.getTasks();
@@ -111,7 +106,6 @@ const AnalyticsManager = {
         `;
     },
 
-    // Render study insights
     renderInsights() {
         const container = document.getElementById('studyInsights');
         const subjects = Storage.getSubjects();
@@ -125,7 +119,6 @@ const AnalyticsManager = {
 
         const insights = [];
 
-        // Most productive subject
         const subjectStats = subjects.map(subject => {
             const completed = tasks.filter(t => t.subjectId === subject.id && t.completed).length;
             return { subject, completed };
@@ -140,7 +133,6 @@ const AnalyticsManager = {
             });
         }
 
-        // Subject needing attention
         const needsAttention = subjectStats.find(stat => {
             const total = tasks.filter(t => t.subjectId === stat.subject.id).length;
             const completionRate = total > 0 ? (stat.completed / total) : 1;
@@ -156,7 +148,6 @@ const AnalyticsManager = {
             });
         }
 
-        // Most scheduled subject
         if (schedules && schedules.length > 0) {
             const scheduleStats = subjects.map(subject => {
                 const count = schedules.filter(s => s.subjectId === subject.id).length;
@@ -173,7 +164,6 @@ const AnalyticsManager = {
             }
         }
 
-        // Upcoming deadline count
         const upcomingDeadlines = tasks.filter(t => {
             if (t.completed) return false;
             const deadline = new Date(t.deadline);
@@ -189,7 +179,6 @@ const AnalyticsManager = {
             });
         }
 
-        // Overall completion rate
         const completedTasks = tasks.filter(t => t.completed).length;
         const completionRate = Math.round((completedTasks / tasks.length) * 100);
 
@@ -211,7 +200,6 @@ const AnalyticsManager = {
         `).join('');
     },
 
-    // Escape HTML
     escapeHtml(text) {
         const div = document.createElement('div');
         div.textContent = text;
@@ -219,5 +207,4 @@ const AnalyticsManager = {
     }
 };
 
-// Make it available globally
 window.AnalyticsManager = AnalyticsManager;

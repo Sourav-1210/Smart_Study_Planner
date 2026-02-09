@@ -1,65 +1,52 @@
-/* ===================================
-   CSS Variables and Reset
-   =================================== */
+
 :root {
-    /* Fresh Green Color Palette */
     --primary-green: #10b981;
     --primary-green-dark: #059669;
     --primary-green-light: #34d399;
     --primary-green-lighter: #6ee7b7;
     --primary-green-lightest: #d1fae5;
 
-    /* Background Colors */
     --bg-primary: #f0fdf4;
     --bg-secondary: #ffffff;
     --bg-tertiary: #dcfce7;
     --bg-dark: #1a1a1a;
     --bg-dark-secondary: #2d2d2d;
 
-    /* Text Colors */
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
     --text-muted: #9ca3af;
     --text-white: #ffffff;
 
-    /* Priority Colors */
     --priority-high: #ef4444;
     --priority-medium: #f59e0b;
     --priority-low: #3b82f6;
 
-    /* Status Colors */
     --status-success: #10b981;
     --status-warning: #f59e0b;
     --status-danger: #ef4444;
     --status-info: #3b82f6;
 
-    /* UI Elements */
     --border-color: #e5e7eb;
     --border-radius: 12px;
     --border-radius-sm: 8px;
     --border-radius-lg: 16px;
 
-    /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
-    /* Spacing */
     --spacing-xs: 0.5rem;
     --spacing-sm: 0.75rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
 
-    /* Transitions */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Sidebar */
     --sidebar-width: 260px;
 }
 
-/* Dark Theme Variables */
 [data-theme="dark"] {
     --bg-primary: #111827;
     --bg-secondary: #1f2937;
@@ -69,12 +56,10 @@
     --text-muted: #9ca3af;
     --border-color: #374151;
 
-    /* Dark mode dropdown arrow */
     --dropdown-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2334d399' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     --dropdown-arrow-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
-/* Light theme dropdown arrows */
 :root {
     --dropdown-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     --dropdown-arrow-focus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23059669' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -98,9 +83,7 @@ body {
     transition: var(--transition);
 }
 
-/* ===================================
-   Sidebar Navigation
-   =================================== */
+
 .sidebar {
     position: fixed;
     left: 0;
@@ -139,7 +122,7 @@ body {
     line-height: 1;
 }
 
-/* User Profile Section */
+
 .user-profile {
     background: linear-gradient(135deg, var(--primary-green-lightest), var(--bg-tertiary));
     padding: var(--spacing-md);
@@ -243,7 +226,7 @@ body {
     color: var(--text-white);
 }
 
-/* Mobile Menu Toggle */
+
 .menu-toggle {
     display: none;
     position: fixed;
@@ -261,9 +244,7 @@ body {
     box-shadow: var(--shadow-lg);
 }
 
-/* ===================================
-   Main Content
-   =================================== */
+
 .main-content {
     margin-left: var(--sidebar-width);
     padding: var(--spacing-xl);
@@ -291,7 +272,7 @@ body {
     }
 }
 
-/* Section Header */
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -319,9 +300,7 @@ body {
     align-items: center;
 }
 
-/* ===================================
-   Buttons
-   =================================== */
+
 .btn {
     padding: 0.75rem 1.5rem;
     border: none;
@@ -417,9 +396,7 @@ body {
     border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
 }
 
-/* ===================================
-   Cards
-   =================================== */
+
 .card {
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
@@ -446,9 +423,7 @@ body {
     gap: var(--spacing-xs);
 }
 
-/* ===================================
-   Dashboard
-   =================================== */
+
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -578,9 +553,7 @@ body {
     color: white;
 }
 
-/* ===================================
-   Subjects
-   =================================== */
+
 .subjects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -681,9 +654,7 @@ body {
     background: var(--status-danger);
 }
 
-/* ===================================
-   Schedule
-   =================================== */
+
 .schedule-container {
     overflow-x: auto;
 }
@@ -803,9 +774,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ===================================
-   Tasks
-   =================================== */
+
 .task-filters {
     display: flex;
     gap: var(--spacing-sm);
@@ -913,9 +882,7 @@ body {
     gap: var(--spacing-xs);
 }
 
-/* ===================================
-   Analytics
-   =================================== */
+
 .analytics-grid {
     display: grid;
     gap: var(--spacing-lg);
@@ -994,7 +961,7 @@ body {
     color: var(--primary-green);
 }
 
-/* Pie Chart */
+
 .chart-container {
     display: flex;
     align-items: center;
@@ -1051,9 +1018,7 @@ body {
     color: var(--text-secondary);
 }
 
-/* ===================================
-   Settings
-   =================================== */
+
 .settings-grid {
     display: grid;
     gap: var(--spacing-lg);
@@ -1107,9 +1072,7 @@ body {
     border-color: var(--primary-green);
 }
 
-/* ===================================
-   Modals
-   =================================== */
+
 .modal {
     display: none;
     position: fixed;
@@ -1202,9 +1165,7 @@ body {
     padding: var(--spacing-lg);
 }
 
-/* ===================================
-   Forms
-   =================================== */
+
 .form-group {
     margin-bottom: var(--spacing-lg);
 }
@@ -1231,7 +1192,7 @@ body {
     font-family: inherit;
 }
 
-/* Enhanced Input Focus States */
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -1242,21 +1203,19 @@ body {
     transform: translateY(-1px);
 }
 
-/* Input Hover States */
+
 .form-group input:hover:not(:focus):not(:disabled),
 .form-group textarea:hover:not(:focus):not(:disabled) {
     border-color: var(--primary-green-light);
     background: var(--bg-tertiary);
 }
 
-/* Custom Select Dropdown Styling - Enhanced */
+
 .form-group select {
-    /* Remove ALL default browser arrows */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
 
-    /* Additional resets for specific browsers */
     background-color: var(--bg-secondary);
     background-image: var(--dropdown-arrow);
     background-repeat: no-repeat !important;
@@ -1268,12 +1227,11 @@ body {
     line-height: 1.5;
 }
 
-/* Force remove IE/Edge default arrow */
 .form-group select::-ms-expand {
     display: none;
 }
 
-/* Custom Select Hover */
+
 .form-group select:hover:not(:focus):not(:disabled) {
     border-color: var(--primary-green-light);
     background-color: var(--bg-tertiary);
@@ -1281,14 +1239,14 @@ body {
     background-repeat: no-repeat !important;
 }
 
-/* Custom Select Focus */
+
 .form-group select:focus {
     background-color: var(--bg-secondary);
     background-image: var(--dropdown-arrow-focus);
     background-repeat: no-repeat !important;
 }
 
-/* Select Disabled State */
+
 .form-group select:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -1297,7 +1255,7 @@ body {
     background-repeat: no-repeat !important;
 }
 
-/* Enhanced Select Options Styling */
+
 .form-group select option {
     padding: 1rem 0.75rem;
     background: var(--bg-primary);
@@ -1321,7 +1279,7 @@ body {
     font-weight: 600;
 }
 
-/* Default/Placeholder option styling */
+
 .form-group select option:first-child {
     color: var(--text-muted);
     font-style: italic;
@@ -1333,20 +1291,20 @@ body {
     font-style: normal;
 }
 
-/* Textarea Specific */
+
 .form-group textarea {
     resize: vertical;
     min-height: 100px;
 }
 
-/* Input Placeholder */
+
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: var(--text-muted);
     opacity: 0.7;
 }
 
-/* Input with Icon Support */
+
 .input-with-icon {
     position: relative;
 }
@@ -1392,9 +1350,7 @@ body {
     border-left: 4px solid var(--status-warning);
 }
 
-/* ===================================
-   Toast Notifications
-   =================================== */
+
 .toast {
     position: fixed;
     bottom: var(--spacing-lg);
@@ -1431,9 +1387,7 @@ body {
     background: var(--status-danger);
 }
 
-/* ===================================
-   Utility Classes
-   =================================== */
+
 .empty-state {
     text-align: center;
     padding: var(--spacing-xl);
@@ -1450,15 +1404,12 @@ body {
     display: none !important;
 }
 
-/* ===================================
-   Responsive Design
-   =================================== */
+
 @media (max-width: 1024px) {
     .main-content {
         margin-left: 0;
         padding: var(--spacing-lg);
         padding-top: 80px;
-        /* Add space for hamburger menu */
     }
 
     .sidebar {
